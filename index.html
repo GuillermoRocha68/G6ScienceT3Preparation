@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mr. Rocha’s English Class: Science Exam Preparation Grade 6 Trimester 3</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- SortableJS for Drag and Drop (Mobile & Desktop friendly) -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    
+    <!-- Chart.js for Results Graph -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- html2pdf for PDF Generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        futuristic: {
+                            dark: '#0f172a',
+                            panel: 'rgba(30, 41, 59, 0.7)',
+                            accent: '#06b6d4',
+                            accentHover: '#0891b2',
+                            correct: '#10b981',
+                            incorrect: '#ef4444'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #0f172a;
+            background-image: radial-gradient(circle at 50% top, #1e293b 0%, #0f172a 100%);
+            color: #f8fafc;
+            min-height: 100vh;
+        }
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+        .activity-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .activity-section.active { display: block; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Custom Inputs */
+        input[type="text"], input[type="date"], select, textarea {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid #334155;
+            color: white;
+            transition: all 0.3s;
+        }
+        input[type="text"]:focus, input[type="date"]:focus, select:focus, textarea:focus {
+            border-color: #06b6d4;
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3);
+        }
+        
+        /* Drag and drop styling */
+        .sortable-ghost { opacity: 0.4; background-color: #06b6d4; }
+        .word-pill {
+            cursor: grab;
+            user-select: none;
+        }
+        .word-pill:active { cursor: grabbing; }
+        
+        /* Print Styles - Hidden on screen */
+        #pdf-container { display: none; }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-200">
+
+    <div class="max-w-4xl mx-auto p-4 md:p-8">
+        
+        <!-- Header -->
+        <header class="text-center mb-8 glass-panel p-6 rounded-2xl">
+            <h1 class="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 mb-2">
+                Mr. Rocha’s English Class
+            </h1>
+            <h2 class="text-xl font-semibold text-slate-300 mb-6">Science Exam Preparation: Grade 6 Trimester 3</h2>
+            
+            <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+                <div class="w-full md:w-1/2">
+                    <label class="block text-sm text-slate-400 text-left mb-1">Student Name</label>
+                    <input type="text" id="studentName" placeholder="Enter your name" class="w-full p-3 rounded-lg">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <label class="block text-sm text-slate-400 text-left mb-1">Date</label>
+                    <input type="date" id="studentDate" class="w-full p-3 rounded-lg">
+                </div>
+            </div>
+            
+            <div class="mt-6 flex justify-center">
+                <img src="image1.jpg" alt="Science Banner" class="rounded-lg max-h-96 object-cover border border-slate-700 shadow-lg" onerror="this.style.display='none'">
+            </div>
+        </header>
+
+        <!-- Progress Bar -->
+        <div class="mb-8" id="progressContainer">
+            <div class="flex justify-between text-xs text-slate-400 mb-2" id="progressText">
+                <span>Activity 1 of 6</span>
+                <span>0% Completed</span>
+            </div>
+            <div class="w-full bg-slate-700 rounded-full h-2.5">
+                <div class="bg-cyan-400 h-2.5 rounded-full transition-all duration-500" id="progressBar" style="width: 16.6%"></div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div id="worksheetContainer" class="glass-panel p-6 md:p-8 rounded-2xl mb-24">
+            
+            <!-- Activity 1: Listening -->
+            <section id="act1" class="activity-section active" data-index="0">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-slate-700 pb-2">Activity 1: Listening</h3>
+                <p class="mb-4 text-slate-300">You will hear three short conversations. There is one question for each conversation. For each question, choose the correct answer, A, B, or C.</p>
+                
+                <div class="mb-6">
+                    <audio controls class="w-full mb-2"><source src="audio1.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio>
+                </div>
+
+                <div class="space-y-8">
+                    <!-- Q1 -->
+                    <div class="question-block">
+                        <p class="font-semibold mb-2">1. Which form of energy did Amy use at home?</p>
+                        <img src="image2.jpg" class="mb-3 max-h-48 rounded border border-slate-600" onerror="this.style.display='none'">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q1" value="A" class="form-radio text-cyan-500 h-5 w-5"><span>A. Electrical</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q1" value="B" class="form-radio text-cyan-500 h-5 w-5"><span>B. Chemical from batteries</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q1" value="C" class="form-radio text-cyan-500 h-5 w-5"><span>C. Chemical energy from burning wood</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Q2 -->
+                    <div class="question-block">
+                        <p class="font-semibold mb-2">2. What source of energy did the scientist, Marie Curie, investigate?</p>
+                        <img src="image3.jpg" class="mb-3 max-h-48 rounded border border-slate-600" onerror="this.style.display='none'">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q2" value="A" class="form-radio text-cyan-500 h-5 w-5"><span>A. Radiation / Nuclear</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q2" value="B" class="form-radio text-cyan-500 h-5 w-5"><span>B. Burning coal</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q2" value="C" class="form-radio text-cyan-500 h-5 w-5"><span>C. Solar panels</span>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Q3 -->
+                    <div class="question-block">
+                        <p class="font-semibold mb-2">3. What problem does the town have?</p>
+                        <img src="image4.jpg" class="mb-3 max-h-48 rounded border border-slate-600" onerror="this.style.display='none'">
+                        <div class="space-y-2">
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q3" value="A" class="form-radio text-cyan-500 h-5 w-5"><span>A. Deforestation</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q3" value="B" class="form-radio text-cyan-500 h-5 w-5"><span>B. Oil spill</span>
+                            </label>
+                            <label class="flex items-center space-x-3 p-3 rounded-lg border border-slate-700 hover:bg-slate-800 cursor-pointer">
+                                <input type="radio" name="act1_q3" value="C" class="form-radio text-cyan-500 h-5 w-5"><span>C. Noise pollution</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Activity 2: Reading -->
+            <section id="act2" class="activity-section" data-index="1">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-slate-700 pb-2">Activity 2: Reading</h3>
+                
+                <div class="bg-slate-800 p-5 rounded-lg mb-6 border border-slate-700 shadow-inner">
+                    <h4 class="text-xl font-bold mb-3 text-white text-center">Energy All Around Us</h4>
+                    <p class="mb-3 leading-relaxed">Energy is all around us. It is the ability to do work or make things happen. There are many different types of energy in our world. Let's look at three very common types: sound energy, light energy, and heat energy.</p>
+                    <p class="mb-3 leading-relaxed">First, what is sound energy? Sound energy comes from movements called vibrations. When an object moves back and forth very fast, it pushes the air and makes a sound. We use our ears to hear it. When you talk to a friend, listen to loud music, or play a wooden guitar, you are using sound energy. Even a dog barking is sound energy!</p>
+                    <p class="mb-3 leading-relaxed">Second, there is light energy. Light energy travels in straight lines and helps us see the world. Without light, everything would be completely dark. The biggest and most important source of light energy is the sun. We also get light from electric lamps, candles, and flashlights. Green plants use light energy from the sun to grow and make their own food.</p>
+                    <p class="mb-4 leading-relaxed">Third, we have heat energy. Heat energy is also called thermal energy. It makes things feel warm or hot. Like light, the sun gives us a lot of heat energy. A campfire, an oven, and a winter heater also make heat. We use heat energy every day to cook our delicious food, boil water, and keep our bodies warm when it is cold outside.<br>All these types of energy are very important. We use sound, light, and heat energy every day!</p>
+                    
+                    <div class="bg-slate-900 p-4 rounded border border-slate-600 mt-6">
+                        <h5 class="font-bold text-cyan-300 mb-2">Glossary</h5>
+                        <ul class="text-sm grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <li><strong>Ability:</strong> The power or skill to do something.</li>
+                            <li><strong>Boil:</strong> To heat water until it gets very hot and makes bubbles.</li>
+                            <li><strong>Common:</strong> Happening often; seen in many places.</li>
+                            <li><strong>Delicious:</strong> Tasting very good.</li>
+                            <li><strong>Electric:</strong> Using electricity to work (like a lamp or a TV).</li>
+                            <li><strong>Movements:</strong> Changing places or positions.</li>
+                            <li><strong>Object:</strong> A thing that you can see and touch (but is not alive).</li>
+                            <li><strong>Source:</strong> The place where something comes from.</li>
+                            <li><strong>Thermal:</strong> Related to heat or temperature.</li>
+                            <li><strong>Vibrations:</strong> Fast movements back and forth.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="text-lg font-bold mb-4 text-cyan-200">Reading Comprehension Quiz</h4>
+                <div class="space-y-6" id="readingQuizContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Activity 3: Vocabulary -->
+            <section id="act3" class="activity-section" data-index="2">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-slate-700 pb-2">Activity 3: Vocabulary</h3>
+                <p class="mb-6 text-slate-300">Complete the sentences using the correct words from the glossary. Select the best option from the dropdown menu.</p>
+                
+                <div class="space-y-5" id="vocabQuizContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Activity 4: Language in Use -->
+            <section id="act4" class="activity-section" data-index="3">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-slate-700 pb-2">Activity 4: Language in Use</h3>
+                <p class="mb-6 text-slate-300 bg-slate-800 p-3 rounded border border-cyan-800"><strong class="text-cyan-400">Instructions:</strong> Drag and drop the words to form correct sentences. Listen to the audio to help you check.</p>
+                
+                <div class="space-y-8" id="scrambleContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Activity 5: Writing -->
+            <section id="act5" class="activity-section" data-index="4">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-slate-700 pb-2">Activity 5: Writing</h3>
+                <p class="mb-6 text-slate-300">Read the comparison between sound and light energy. Select the correct missing word from the dropdowns to complete the text.</p>
+                
+                <div class="bg-slate-800 p-6 rounded-lg border border-slate-700 text-lg leading-loose shadow-inner" id="clozeContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </section>
+
+            <!-- Activity 6: Reflection -->
+            <section id="act6" class="activity-section" data-index="5">
+                <h3 class="text-2xl font-bold text-cyan-400 mb-4 border-b border-slate-700 pb-2">Activity 6: Reflection</h3>
+                <p class="mb-4 text-slate-300">Think about what you learned in this exam preparation worksheet. Write a short paragraph explaining what you understood about energy, light, sound, and heat. (This section is not graded, but will be included in your final report).</p>
+                
+                <textarea id="reflectionText" rows="8" class="w-full p-4 rounded-lg resize-none" placeholder="Write your reflection here..."></textarea>
+            </section>
+
+            <!-- Results Screen -->
+            <section id="results" class="activity-section hidden">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-cyan-400 mb-2">Exam Preparation Complete!</h2>
+                    <p class="text-xl text-slate-300">Great job, <span id="resName" class="font-bold text-white"></span>!</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="glass-panel p-6 rounded-xl flex flex-col items-center justify-center">
+                        <h3 class="text-xl font-semibold mb-4">Overall Score</h3>
+                        <div class="relative w-48 h-48">
+                            <canvas id="scoreChart"></canvas>
+                            <div class="absolute inset-0 flex items-center justify-center flex-col">
+                                <span class="text-3xl font-bold" id="finalScoreText">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold mb-4 border-b border-slate-600 pb-2 text-cyan-300">Section Breakdown</h3>
+                        <ul class="space-y-3" id="breakdownList">
+                            <!-- Populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-6 rounded-xl mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-cyan-400 border-b border-slate-600 pb-2">Personalized Recommendations</h3>
+                    <ul class="space-y-4 list-disc pl-5 text-slate-200" id="recommendationsList">
+                        <!-- Populated by JS -->
+                    </ul>
+                </div>
+
+            </section>
+
+        </div>
+
+        <!-- Navigation Footer -->
+        <div class="fixed bottom-0 left-0 w-full glass-panel border-t border-slate-700 p-4 z-50">
+            <div class="max-w-4xl mx-auto flex justify-between items-center" id="navButtons">
+                <button id="btnBack" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-semibold transition-colors disabled:opacity-50 hidden">
+                    &larr; Back
+                </button>
+                
+                <div class="flex gap-3 ml-auto">
+                    <button id="btnCheck" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg font-semibold shadow-lg shadow-indigo-500/30 transition-colors">
+                        Check Answers
+                    </button>
+                    <button id="btnNext" class="px-5 py-2.5 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-semibold shadow-lg shadow-cyan-500/30 transition-colors">
+                        Next &rarr;
+                    </button>
+                    <button id="btnSubmit" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-bold shadow-lg shadow-emerald-500/30 transition-colors hidden">
+                        Submit Worksheet
+                    </button>
+                </div>
+            </div>
+
+            <div id="resultsButtons" class="max-w-4xl mx-auto flex justify-center gap-4 hidden">
+                <button id="btnDownloadPDF" class="px-6 py-3 bg-cyan-600 hover:bg-cyan-500 text-white rounded-lg font-bold shadow-lg shadow-cyan-500/30 transition-colors flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    Download PDF
+                </button>
+                <button id="btnRestart" class="px-6 py-3 bg-slate-700 hover:bg-slate-600 text-white rounded-lg font-bold transition-colors">
+                    Start Again
+                </button>
+                <button id="btnClose" class="px-6 py-3 bg-red-600 hover:bg-red-500 text-white rounded-lg font-bold transition-colors">
+                    Close Application
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Hidden PDF Generation Container -->
+    <div id="pdf-container" class="bg-white text-black p-8 font-sans w-[800px]">
+        <div class="text-center border-b-4 border-blue-800 pb-4 mb-6">
+            <h1 class="text-2xl font-bold text-blue-900 mb-2">Send PDF results by WhatsApp to Mr. Rocha to get credit: 33-3497-1997</h1>
+            <h2 class="text-xl font-bold text-gray-800">Science Exam Preparation Grade 6 Trimester 3</h2>
+        </div>
+        
+        <div class="flex justify-between mb-6 bg-gray-100 p-4 rounded">
+            <p><strong>Student Name:</strong> <span id="pdfName"></span></p>
+            <p><strong>Date:</strong> <span id="pdfDate"></span></p>
+            <p><strong>Final Score:</strong> <span id="pdfScore" class="font-bold text-blue-700"></span></p>
+        </div>
+
+        <div id="pdfChartContainer" class="w-64 h-64 mx-auto mb-8">
+            <img id="pdfChartImage" class="w-full h-full object-contain" alt="Score Chart">
+        </div>
+
+        <div id="pdfContentArea" class="space-y-6">
+            <!-- Will be populated dynamically based on user inputs before printing -->
+        </div>
+        
+        <div class="mt-8 border-t-2 border-gray-300 pt-4">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Student Reflection</h3>
+            <p id="pdfReflection" class="bg-gray-50 p-4 border border-gray-200 rounded italic text-gray-700 whitespace-pre-wrap"></p>
+        </div>
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // --- DATA STRUCTURES --- //
+        const answers = {
+            act1: { q1: "C", q2: "A", q3: "B" },
+            act2: [
+                { q: "What does energy do?", options: ["It makes things dark.", "It makes things happen.", "It makes plants sleep.", "It stops things from moving."], ans: 1 },
+                { q: "Where does sound energy come from?", options: ["Vibrations", "Light", "Heat", "Plants"], ans: 0 },
+                { q: "What do we use to hear sound energy?", options: ["Our eyes", "Our hands", "Our ears", "Our nose"], ans: 2 },
+                { q: "What is the biggest source of light energy?", options: ["A lamp", "A flashlight", "A fire", "The sun"], ans: 3 },
+                { q: "Why do green plants need light energy?", options: ["To grow and make food", "To stay warm", "To make loud sounds", "To drink water"], ans: 0 },
+                { q: "What is another name for heat energy?", options: ["Sound energy", "Thermal energy", "Dark energy", "Plant energy"], ans: 1 },
+                { q: "What do we use heat energy for?", options: ["To play the guitar", "To cool our houses", "To cook our food", "To see the stars"], ans: 2 },
+                { q: "How does light energy travel?", options: ["In fast squares", "In slow circles", "It does not move", "In straight lines"], ans: 3 }
+            ],
+            act3: [
+                { sentence: "An athlete has the [blank] to run very fast.", word: "ability", options: ["ability", "source", "object", "thermal"] },
+                { sentence: "Make sure to [blank] the water for the tea.", word: "boil", options: ["boil", "electric", "common", "vibrations"] },
+                { sentence: "Colds are a very [blank] illness in winter.", word: "common", options: ["delicious", "common", "ability", "movements"] },
+                { sentence: "My grandmother cooks very [blank] meals.", word: "delicious", options: ["source", "electric", "delicious", "thermal"] },
+                { sentence: "Please turn off the [blank] fan before leaving.", word: "electric", options: ["vibrations", "electric", "object", "boil"] },
+                { sentence: "The dancer's [blank] were very graceful.", word: "movements", options: ["movements", "common", "ability", "delicious"] },
+                { sentence: "The sun is an important [blank] of energy.", word: "source", options: ["object", "thermal", "source", "boil"] },
+                { sentence: "Sound is created by fast [blank] in the air.", word: "vibrations", options: ["vibrations", "electric", "movements", "common"] }
+            ],
+            act4: [
+                { target: "Energy is all around us every day.", words: ["every", "us", "around", "all", "Energy", "day.", "is"] },
+                { target: "The sun gives us light and heat.", words: ["light", "The", "sun", "gives", "us", "heat.", "and"] },
+                { target: "Sound travels in invisible waves through air.", words: ["through", "invisible", "Sound", "air.", "travels", "in", "waves"] },
+                { target: "Plants need light energy to grow well.", words: ["grow", "energy", "Plants", "well.", "need", "to", "light"] },
+                { target: "A fire makes heat to keep us warm.", words: ["makes", "warm.", "us", "A", "keep", "heat", "to", "fire"] },
+                { target: "We use electric energy in our homes.", words: ["energy", "use", "homes.", "our", "We", "in", "electric"] },
+                { target: "Vibrations make the sound that we hear.", words: ["sound", "hear.", "make", "that", "Vibrations", "we", "the"] },
+                { target: "Light travels in a straight fast line.", words: ["a", "line.", "travels", "fast", "Light", "in", "straight"] },
+                { target: "A guitar string makes sound energy.", words: ["makes", "string", "sound", "energy.", "A", "guitar"] },
+                { target: "Heat energy is also called thermal energy.", words: ["also", "thermal", "is", "energy.", "Heat", "energy", "called"] },
+                { target: "You boil water using heat energy.", words: ["heat", "water", "using", "You", "energy.", "boil"] },
+                { target: "We need energy to do work.", words: ["do", "need", "We", "work.", "to", "energy"] }
+            ],
+            act5_text: "Energy is an essential part of our daily lives, and two of the most {0} forms are sound and light energy. While they have some similarities, they also have many important differences. Both sound and light are forms of energy that travel in {1}. However, the way these waves behave is very different. Sound energy is created by vibrations. When an object {2}, it pushes the surrounding air molecules, creating a chain reaction that {3} our ears. This means that sound requires a medium, like air, water, or {4} objects, to travel. It cannot travel through a vacuum, such as {5} space.<br><br>On the other hand, light energy is a type of electromagnetic {6}. Unlike sound, light does not need a medium to travel. It can move through the {7} vacuum of space, which is how the light from the sun reaches the {8}. Furthermore, light travels incredibly fast, much {9} than sound. This is why we see lightning before we hear the {10} during a storm.<br><br>Another difference is how we {11} them. We use our ears to detect sound waves, while we use our eyes to detect light waves. Light allows us to see the shapes, {12}, and details of the world around us. Sound allows us to {13} through speech, listen to music, and hear warning signals. Both forms of energy are crucial for our {14} and enjoyment of life, highlighting the diverse ways energy interacts with the {15}.",
+            act5_options: [
+                { correct: "fascinating", opts: ["boring", "fascinating", "heavy"] },
+                { correct: "waves", opts: ["squares", "waves", "lines"] },
+                { correct: "vibrates", opts: ["sleeps", "vibrates", "breaks"] },
+                { correct: "reaches", opts: ["reaches", "misses", "ignores"] },
+                { correct: "solid", opts: ["empty", "solid", "broken"] },
+                { correct: "outer", opts: ["inner", "outer", "under"] },
+                { correct: "radiation", opts: ["radiation", "liquid", "animal"] },
+                { correct: "empty", opts: ["full", "empty", "loud"] },
+                { correct: "Earth", opts: ["moon", "Earth", "star"] },
+                { correct: "faster", opts: ["slower", "faster", "smaller"] },
+                { correct: "thunder", opts: ["rain", "thunder", "snow"] },
+                { correct: "detect", opts: ["detect", "hide", "forget"] },
+                { correct: "colors", opts: ["sounds", "colors", "smells"] },
+                { correct: "communicate", opts: ["communicate", "sleep", "eat"] },
+                { correct: "survival", opts: ["danger", "survival", "damage"] },
+                { correct: "universe", opts: ["universe", "pocket", "shoe"] }
+            ]
+        };
+
+        // --- STATE --- //
+        let currentActivity = 0;
+        const totalActivities = 6;
+        let checkedStatus = [false, false, false, false, false, false];
+        let scores = { act1: {s:0, m:3}, act2: {s:0, m:8}, act3: {s:0, m:8}, act4: {s:0, m:12}, act5: {s:0, m:16} };
+        let sortables = [];
+
+        // --- DOM ELEMENTS --- //
+        const sections = document.querySelectorAll('.activity-section');
+        const btnBack = document.getElementById('btnBack');
+        const btnNext = document.getElementById('btnNext');
+        const btnCheck = document.getElementById('btnCheck');
+        const btnSubmit = document.getElementById('btnSubmit');
+        const progressBar = document.getElementById('progressBar');
+        const progressText = document.getElementById('progressText');
+
+        // --- INITIALIZATION --- //
+        function init() {
+            renderAct2();
+            renderAct3();
+            renderAct4();
+            renderAct5();
+            updateUI();
+            
+            // Set date to today
+            document.getElementById('studentDate').valueAsDate = new Date();
+        }
+
+        // --- RENDERING DYNAMIC CONTENT --- //
+        
+        // Shuffle array helper
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function renderAct2() {
+            const container = document.getElementById('readingQuizContainer');
+            let html = '';
+            answers.act2.forEach((q, i) => {
+                html += `<div class="question-block mb-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700">
+                    <p class="font-semibold mb-3">${i+1}. ${q.q}</p>
+                    <div class="space-y-2">`;
+                const letters = ['A', 'B', 'C', 'D'];
+                q.options.forEach((opt, j) => {
+                    html += `<label class="flex items-center space-x-3 p-2 rounded hover:bg-slate-700 cursor-pointer transition-colors">
+                        <input type="radio" name="act2_q${i}" value="${j}" class="form-radio text-cyan-500 h-4 w-4">
+                        <span>${letters[j]}. ${opt}</span>
+                    </label>`;
+                });
+                html += `</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderAct3() {
+            const container = document.getElementById('vocabQuizContainer');
+            let html = '';
+            
+            // Shuffle sentences
+            const shuffledVocab = shuffle([...answers.act3]);
+            // Save order to grade properly later
+            answers.act3_order = shuffledVocab;
+
+            shuffledVocab.forEach((item, i) => {
+                const parts = item.sentence.split('[blank]');
+                const shuffledOptions = shuffle([...item.options]);
+                
+                let selectHtml = `<select id="act3_q${i}" class="p-1 rounded bg-slate-700 text-white font-semibold mx-2 border-slate-500">
+                    <option value="" disabled selected>-- select --</option>`;
+                shuffledOptions.forEach(opt => {
+                    selectHtml += `<option value="${opt}">${opt}</option>`;
+                });
+                selectHtml += `</select>`;
+                
+                html += `<div class="p-3 bg-slate-800/50 rounded-lg border border-slate-700 flex items-center flex-wrap gap-2 text-lg">
+                    <span class="font-bold text-slate-400 mr-2">${i+1}.</span> ${parts[0]} ${selectHtml} ${parts[1]}
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderAct4() {
+            const container = document.getElementById('scrambleContainer');
+            let html = '';
+            answers.act4.forEach((item, i) => {
+                html += `<div class="bg-slate-800/80 p-4 rounded-xl border border-slate-600 shadow-sm">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="font-bold text-cyan-300">Sentence ${i+1}</span>
+                        <audio controls class="h-8 w-48"><source src="audioa${i+1}.mp3" type="audio/mpeg"></audio>
+                    </div>
+                    <div id="sortable_${i}" class="sortable-list flex flex-wrap gap-2 p-3 bg-slate-900 rounded-lg min-h-[60px] border border-dashed border-slate-500">`;
+                
+                item.words.forEach(word => {
+                    html += `<div class="word-pill bg-cyan-800 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg shadow cursor-grab font-medium border border-cyan-600">${word}</div>`;
+                });
+                
+                html += `</div>
+                    <div id="feedback_act4_${i}" class="mt-2 text-sm font-bold hidden"></div>
+                </div>`;
+            });
+            container.innerHTML = html;
+
+            // Initialize Sortable after small delay to ensure DOM is ready
+            setTimeout(() => {
+                answers.act4.forEach((_, i) => {
+                    const el = document.getElementById(`sortable_${i}`);
+                    sortables.push(new Sortable(el, {
+                        animation: 150,
+                        ghostClass: 'sortable-ghost',
+                        delay: 150, // Slight delay ensures we don't accidentally grab when trying to scroll on mobile
+                        delayOnTouchOnly: true // Only apply the delay for touch devices (allows seamless scrolling)
+                    }));
+                });
+            }, 100);
+        }
+
+        function renderAct5() {
+            const container = document.getElementById('clozeContainer');
+            let text = answers.act5_text;
+            
+            answers.act5_options.forEach((item, i) => {
+                const shuffledOpts = shuffle([...item.opts]);
+                let selectHtml = `<select id="act5_q${i}" class="p-1 rounded bg-slate-700 text-cyan-300 font-bold mx-1 border border-slate-500 focus:border-cyan-400">
+                    <option value="" disabled selected>...</option>`;
+                shuffledOpts.forEach(opt => {
+                    selectHtml += `<option value="${opt}">${opt}</option>`;
+                });
+                selectHtml += `</select>`;
+                text = text.replace(`{${i}}`, selectHtml);
+            });
+            
+            container.innerHTML = text;
+        }
+
+        // --- NAVIGATION LOGIC --- //
+        
+        function updateUI() {
+            // Hide all, show current
+            sections.forEach((sec, idx) => {
+                if(idx === currentActivity) sec.classList.add('active');
+                else sec.classList.remove('active');
+            });
+
+            // Update Progress
+            let pct = Math.round(((currentActivity) / totalActivities) * 100);
+            if(currentActivity === totalActivities) pct = 100; // Results screen
+            progressBar.style.width = `${pct}%`;
+            progressText.innerHTML = `<span>Activity ${Math.min(currentActivity + 1, 6)} of 6</span><span>${pct}% Completed</span>`;
+
+            // Buttons visibility
+            if(currentActivity === 0) {
+                btnBack.classList.add('hidden');
+            } else if(currentActivity < totalActivities) {
+                btnBack.classList.remove('hidden');
+            } else {
+                // Results screen
+                document.getElementById('navButtons').classList.add('hidden');
+                document.getElementById('resultsButtons').classList.remove('hidden');
+                document.getElementById('progressContainer').classList.add('hidden');
+            }
+
+            if(currentActivity === 5) {
+                // Activity 6 (Reflection) -> No check answers, just Submit
+                btnNext.classList.add('hidden');
+                btnCheck.classList.add('hidden');
+                btnSubmit.classList.remove('hidden');
+            } else if (currentActivity < 5) {
+                btnNext.classList.remove('hidden');
+                btnSubmit.classList.add('hidden');
+                
+                // If already checked, hide Check button, else show
+                if(checkedStatus[currentActivity]) {
+                    btnCheck.classList.add('hidden');
+                } else {
+                    btnCheck.classList.remove('hidden');
+                }
+            }
+        }
+
+        btnNext.addEventListener('click', () => {
+            if (currentActivity < 5) {
+                currentActivity++;
+                updateUI();
+                window.scrollTo(0,0);
+            }
+        });
+
+        btnBack.addEventListener('click', () => {
+            if (currentActivity > 0) {
+                currentActivity--;
+                updateUI();
+                window.scrollTo(0,0);
+            }
+        });
+
+        // --- CHECKING ANSWERS --- //
+        
+        btnCheck.addEventListener('click', () => {
+            checkCurrentActivity();
+        });
+
+        function markCorrect(element) {
+            element.classList.add('ring-2', 'ring-green-500', 'bg-green-900/20');
+        }
+        function markIncorrect(element) {
+            element.classList.add('ring-2', 'ring-red-500', 'bg-red-900/20');
+        }
+        function disableInputs(selector) {
+            document.querySelectorAll(selector).forEach(el => el.disabled = true);
+        }
+
+        function checkCurrentActivity() {
+            let score = 0;
+            
+            if (currentActivity === 0) {
+                // Act 1
+                ['q1', 'q2', 'q3'].forEach((q, i) => {
+                    const selected = document.querySelector(`input[name="act1_${q}"]:checked`);
+                    const block = document.querySelectorAll('#act1 .question-block')[i];
+                    if (selected) {
+                        if (selected.value === answers.act1[q]) {
+                            score++;
+                            markCorrect(block);
+                        } else {
+                            markIncorrect(block);
+                            // Show correct answer subtly
+                            const correctLabel = document.querySelector(`input[name="act1_${q}"][value="${answers.act1[q]}"]`).parentElement;
+                            correctLabel.classList.add('border-green-500', 'text-green-400');
+                        }
+                    } else {
+                        markIncorrect(block);
+                    }
+                });
+                scores.act1.s = score;
+                disableInputs('input[name^="act1_"]');
+                
+            } else if (currentActivity === 1) {
+                // Act 2
+                answers.act2.forEach((q, i) => {
+                    const selected = document.querySelector(`input[name="act2_q${i}"]:checked`);
+                    const block = document.querySelectorAll('#act2 .question-block')[i];
+                    if (selected) {
+                        if (parseInt(selected.value) === q.ans) {
+                            score++;
+                            markCorrect(block);
+                        } else {
+                            markIncorrect(block);
+                            const correctLabel = document.querySelector(`input[name="act2_q${i}"][value="${q.ans}"]`).parentElement;
+                            correctLabel.classList.add('border-green-500', 'text-green-400');
+                        }
+                    } else {
+                        markIncorrect(block);
+                    }
+                });
+                scores.act2.s = score;
+                disableInputs('input[name^="act2_"]');
+                
+            } else if (currentActivity === 2) {
+                // Act 3
+                answers.act3_order.forEach((item, i) => {
+                    const select = document.getElementById(`act3_q${i}`);
+                    if (select.value === item.word) {
+                        score++;
+                        select.classList.add('bg-green-800', 'text-green-200', 'border-green-500');
+                    } else {
+                        select.classList.add('bg-red-800', 'text-red-200', 'border-red-500');
+                        // Show correct answer
+                        const span = document.createElement('span');
+                        span.className = 'text-green-400 font-bold ml-2 text-sm';
+                        span.innerText = `(Correct: ${item.word})`;
+                        select.parentNode.appendChild(span);
+                    }
+                    select.disabled = true;
+                });
+                scores.act3.s = score;
+
+            } else if (currentActivity === 3) {
+                // Act 4 (Drag & Drop)
+                answers.act4.forEach((item, i) => {
+                    const container = document.getElementById(`sortable_${i}`);
+                    const feedback = document.getElementById(`feedback_act4_${i}`);
+                    const words = Array.from(container.children).map(el => el.innerText.trim());
+                    const sentence = words.join(" ");
+                    
+                    feedback.classList.remove('hidden');
+                    if (sentence === item.target) {
+                        score++;
+                        container.classList.add('border-green-500', 'bg-green-900/20');
+                        feedback.classList.add('text-green-400');
+                        feedback.innerText = "✓ Correct!";
+                    } else {
+                        container.classList.add('border-red-500', 'bg-red-900/20');
+                        feedback.classList.add('text-red-400');
+                        feedback.innerText = `✗ Correct: ${item.target}`;
+                    }
+                });
+                scores.act4.s = score;
+                // Disable sortables
+                sortables.forEach(s => s.option("disabled", true));
+                
+            } else if (currentActivity === 4) {
+                // Act 5 (Cloze)
+                answers.act5_options.forEach((item, i) => {
+                    const select = document.getElementById(`act5_q${i}`);
+                    if (select.value === item.correct) {
+                        score++;
+                        select.classList.add('bg-green-800', 'text-green-200', 'border-green-500');
+                    } else {
+                        select.classList.add('bg-red-800', 'text-red-200', 'border-red-500');
+                        const span = document.createElement('span');
+                        span.className = 'text-green-400 font-bold ml-1 text-sm bg-slate-900 px-1 rounded';
+                        span.innerText = `[${item.correct}]`;
+                        select.parentNode.insertBefore(span, select.nextSibling);
+                    }
+                    select.disabled = true;
+                });
+                scores.act5.s = score;
+            }
+
+            checkedStatus[currentActivity] = true;
+            updateUI();
+        }
+
+        // --- SUBMISSION & RESULTS --- //
+        
+        btnSubmit.addEventListener('click', () => {
+            // Ask confirmation if name is empty
+            const name = document.getElementById('studentName').value.trim() || 'Student';
+            document.getElementById('resName').innerText = name;
+            
+            // Auto-check any unchecked previous activities (except 6 which is textarea)
+            for(let i=0; i<5; i++) {
+                if(!checkedStatus[i]) {
+                    currentActivity = i;
+                    checkCurrentActivity();
+                }
+            }
+            
+            currentActivity = 6; // Results screen index
+            updateUI();
+            generateResultsContent();
+        });
+
+        function generateResultsContent() {
+            // Calculate totals
+            let totalScore = 0;
+            let totalMax = 0;
+            const breakdown = document.getElementById('breakdownList');
+            breakdown.innerHTML = '';
+            
+            const titles = ["Listening", "Reading", "Vocabulary", "Language in Use", "Writing"];
+            const sectionPercentages = [];
+
+            Object.keys(scores).forEach((key, idx) => {
+                const s = scores[key].s;
+                const m = scores[key].m;
+                totalScore += s;
+                totalMax += m;
+                
+                const pct = Math.round((s / m) * 100);
+                sectionPercentages.push(pct);
+                
+                breakdown.innerHTML += `
+                    <li class="flex justify-between items-center p-3 bg-slate-800 rounded border border-slate-700">
+                        <span class="font-semibold text-slate-300">Activity ${idx+1}: ${titles[idx]}</span>
+                        <div class="flex items-center gap-3">
+                            <span class="font-bold ${pct >= 80 ? 'text-green-400' : pct >= 50 ? 'text-yellow-400' : 'text-red-400'}">${s}/${m}</span>
+                            <div class="w-24 bg-slate-900 rounded-full h-2">
+                                <div class="bg-cyan-500 h-2 rounded-full" style="width: ${pct}%"></div>
+                            </div>
+                        </div>
+                    </li>
+                `;
+            });
+
+            const finalPct = Math.round((totalScore / totalMax) * 100);
+            document.getElementById('finalScoreText').innerText = `${finalPct}%`;
+            document.getElementById('finalScoreText').className = `text-3xl font-bold ${finalPct >= 80 ? 'text-green-400' : finalPct >= 60 ? 'text-yellow-400' : 'text-red-400'}`;
+
+            renderChart(finalPct);
+            generateRecommendations(sectionPercentages, finalPct);
+        }
+
+        let myChart = null;
+        function renderChart(finalPct) {
+            const ctx = document.getElementById('scoreChart').getContext('2d');
+            if(myChart) myChart.destroy();
+            
+            myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Correct', 'Incorrect'],
+                    datasets: [{
+                        data: [finalPct, 100 - finalPct],
+                        backgroundColor: ['#10b981', '#334155'],
+                        borderWidth: 0,
+                        hoverOffset: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    cutout: '75%',
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { enabled: false }
+                    },
+                    animation: { animateScale: true, animateRotate: true }
+                }
+            });
+        }
+
+        function generateRecommendations(pacts, finalPct) {
+            // pacts = [Listening, Reading, Vocab, Language, Writing]
+            const recs = [];
+            
+            // 8 Specific recommendations as requested
+            
+            // 1 & 2: General / Listening
+            if (pacts[0] >= 80) {
+                recs.push("Excellent listening skills! Continue exposing yourself to English audio, like podcasts or science documentaries.");
+            } else {
+                recs.push("To improve listening comprehension, try listening to short English science videos with subtitles and then without them.");
+                recs.push("Review keywords related to energy forms before listening exercises to anticipate the topic.");
+            }
+
+            // 3: Reading
+            if (pacts[1] >= 75) {
+                recs.push("Great reading comprehension. Try reading more complex articles about renewable energy sources to challenge yourself.");
+            } else {
+                recs.push("When reading, highlight key terms like 'thermal' and 'vibration' to better understand the main idea of each paragraph.");
+            }
+
+            // 4: Vocabulary
+            if (pacts[2] >= 75) {
+                recs.push("Strong vocabulary retention. Start creating your own sentences using the glossary words to master them fully.");
+            } else {
+                recs.push("Create flashcards for the glossary words. Practice matching the word with its definition daily.");
+            }
+
+            // 5 & 6: Language In Use (Syntax)
+            if (pacts[3] >= 80) {
+                recs.push("Excellent understanding of sentence structure. You naturally place adjectives and subjects correctly.");
+            } else {
+                recs.push("Practice the basic English sentence structure: Subject + Verb + Object. Remember that adjectives come before nouns (e.g., 'fast vibrations').");
+                recs.push("Read sentences out loud to hear if they 'sound' correct. Often your ear can catch grammar mistakes.");
+            }
+
+            // 7: Writing
+            if (pacts[4] >= 75) {
+                recs.push("Very good grasp of context in writing. Your ability to distinguish between sound and light properties is solid.");
+            } else {
+                recs.push("When doing cloze (fill-in-the-blank) exercises, read the whole sentence first to understand the context before choosing a word.");
+            }
+
+            // 8: Final overall
+            if (finalPct >= 80) {
+                recs.push("Overall, outstanding performance on this Science Exam Preparation! You are well-prepared for the Trimester 3 Exam.");
+            } else if (finalPct >= 60) {
+                recs.push("Good effort. A quick review of your incorrect answers, specifically focusing on the differences between heat, light, and sound, will make you fully ready for the exam.");
+            } else {
+                recs.push("Please review the 'Energy All Around Us' text again and ask Mr. Rocha for clarification on topics that were confusing. Don't give up!");
+            }
+
+            // Ensure exactly 8 if we have fewer, by adding generic academic advice
+            while(recs.length < 8) {
+                recs.push("Remember to get a good night's sleep before the actual exam to keep your mind sharp.");
+            }
+
+            const list = document.getElementById('recommendationsList');
+            list.innerHTML = '';
+            recs.slice(0,8).forEach(r => {
+                list.innerHTML += `<li class="flex items-start"><svg class="w-6 h-6 text-cyan-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> <span>${r}</span></li>`;
+            });
+        }
+
+        // --- PDF GENERATION --- //
+        
+        document.getElementById('btnDownloadPDF').addEventListener('click', () => {
+            const btn = document.getElementById('btnDownloadPDF');
+            btn.innerHTML = 'Generating...';
+            btn.disabled = true;
+
+            // Prepare PDF content
+            document.getElementById('pdfName').innerText = document.getElementById('studentName').value || 'Not provided';
+            document.getElementById('pdfDate').innerText = document.getElementById('studentDate').value || new Date().toLocaleDateString();
+            document.getElementById('pdfScore').innerText = document.getElementById('finalScoreText').innerText;
+            document.getElementById('pdfReflection').innerText = document.getElementById('reflectionText').value || 'No reflection provided.';
+
+            // Convert Chart to image for PDF
+            const chartCanvas = document.getElementById('scoreChart');
+            const chartImg = document.getElementById('pdfChartImage');
+            chartImg.src = chartCanvas.toDataURL('image/png');
+
+            // Generate responses breakdown
+            let pdfHtml = '';
+            const titles = ["Listening", "Reading", "Vocabulary", "Language in Use", "Writing"];
+            
+            Object.keys(scores).forEach((key, idx) => {
+                const s = scores[key].s;
+                const m = scores[key].m;
+                pdfHtml += `
+                    <div class="mb-4 pb-2 border-b border-gray-200">
+                        <h4 class="font-bold text-blue-800">Activity ${idx+1}: ${titles[idx]} <span class="float-right text-gray-600">Score: ${s}/${m}</span></h4>
+                    </div>
+                `;
+            });
+
+            document.getElementById('pdfContentArea').innerHTML = pdfHtml;
+
+            // Reveal container temporarily for html2pdf
+            const pdfContainer = document.getElementById('pdf-container');
+            pdfContainer.style.display = 'block';
+
+            const opt = {
+                margin:       0.5,
+                filename:     `Science_Exam_Prep_${document.getElementById('studentName').value || 'Student'}.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(pdfContainer).save().then(() => {
+                pdfContainer.style.display = 'none';
+                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Download PDF';
+                btn.disabled = false;
+            });
+        });
+
+        // --- APP CONTROLS --- //
+        document.getElementById('btnRestart').addEventListener('click', () => {
+            location.reload();
+        });
+
+        document.getElementById('btnClose').addEventListener('click', () => {
+            try {
+                window.close();
+            } catch(e) {
+                console.log(e);
+            }
+            alert("If the window doesn't close automatically, please close the browser tab.");
+            document.body.innerHTML = "<div class='flex h-screen items-center justify-center text-2xl font-bold text-cyan-400'>Application Closed. You may close this tab.</div>";
+        });
+
+        // Start
+        init();
+
+    </script>
+</body>
+</html>
