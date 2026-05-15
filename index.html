@@ -74,6 +74,12 @@
             box-shadow: 0 0 0 2px rgba(6, 182, 212, 0.3);
         }
         
+        /* Make the calendar icon white */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+            cursor: pointer;
+        }
+        
         /* Drag and drop styling */
         .sortable-ghost { opacity: 0.4; background-color: #06b6d4; }
         .word-pill {
@@ -81,9 +87,17 @@
             user-select: none;
         }
         .word-pill:active { cursor: grabbing; }
-        
-        /* Print Styles - Hidden on screen */
-        #pdf-container { display: none; }
+
+        /* Secure PDF Container styling to avoid blank pages */
+        #pdf-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 1024px;
+            z-index: -9999;
+            opacity: 0.01; /* Keeps it rendered but practically invisible for the user */
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="font-sans antialiased text-slate-200">
@@ -333,30 +347,56 @@
 
     </div>
 
-    <!-- Hidden PDF Generation Container -->
-    <div id="pdf-container" class="bg-white text-black p-8 font-sans w-[800px]">
-        <div class="text-center border-b-4 border-blue-800 pb-4 mb-6">
-            <h1 class="text-2xl font-bold text-blue-900 mb-2">Send PDF results by WhatsApp to Mr. Rocha to get credit: 33-3497-1997</h1>
-            <h2 class="text-xl font-bold text-gray-800">Science Exam Preparation Grade 6 Trimester 3</h2>
-        </div>
-        
-        <div class="flex justify-between mb-6 bg-gray-100 p-4 rounded">
-            <p><strong>Student Name:</strong> <span id="pdfName"></span></p>
-            <p><strong>Date:</strong> <span id="pdfDate"></span></p>
-            <p><strong>Final Score:</strong> <span id="pdfScore" class="font-bold text-blue-700"></span></p>
-        </div>
+    <!-- Hidden PDF Generation Container with Energy Theme -->
+    <div id="pdf-wrapper">
+        <div id="pdf-container" class="mx-auto bg-white text-black p-10 font-sans w-[800px] relative border-t-8 border-orange-500 shadow-2xl">
+            <!-- Energy Theme Background Accents -->
+            <div class="absolute top-4 right-8 opacity-10">
+                <svg class="w-24 h-24 text-orange-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
+            </div>
+            <div class="absolute bottom-10 left-8 opacity-10">
+                <svg class="w-24 h-24 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
+            </div>
 
-        <div id="pdfChartContainer" class="w-64 h-64 mx-auto mb-8">
-            <img id="pdfChartImage" class="w-full h-full object-contain" alt="Score Chart">
-        </div>
+            <div class="text-center border-b-4 border-orange-400 pb-4 mb-6 relative z-10">
+                <h1 class="text-xl font-bold text-orange-600 mb-1 flex justify-center items-center gap-2">
+                    <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
+                    Send PDF results by WhatsApp to Mr. Rocha to get credit: 33-3497-1997
+                    <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.381z" clip-rule="evenodd"></path></svg>
+                </h1>
+                <h2 class="text-2xl font-black text-gray-800 tracking-wide uppercase mt-3">Science Exam Preparation</h2>
+                <h3 class="text-lg font-bold text-gray-600">Grade 6 Trimester 3</h3>
+            </div>
+            
+            <div class="flex justify-between mb-6 bg-gradient-to-r from-orange-50 to-yellow-50 p-4 rounded-lg border border-orange-200 text-sm z-10 relative shadow-sm">
+                <p><strong class="text-orange-800">Student Name:</strong> <span id="pdfName" class="text-gray-900 font-semibold"></span></p>
+                <p><strong class="text-orange-800">Date:</strong> <span id="pdfDate" class="text-gray-900 font-semibold"></span></p>
+                <p><strong class="text-orange-800">Final Overall Score:</strong> <span id="pdfScore" class="font-black text-xl text-orange-600"></span></p>
+            </div>
 
-        <div id="pdfContentArea" class="space-y-6">
-            <!-- Will be populated dynamically based on user inputs before printing -->
-        </div>
-        
-        <div class="mt-8 border-t-2 border-gray-300 pt-4">
-            <h3 class="text-lg font-bold text-blue-800 mb-2">Student Reflection</h3>
-            <p id="pdfReflection" class="bg-gray-50 p-4 border border-gray-200 rounded italic text-gray-700 whitespace-pre-wrap"></p>
+            <div class="flex flex-row gap-6 mb-6 items-start z-10 relative">
+                <div id="pdfChartContainer" class="w-1/3 bg-white p-2 rounded border border-gray-100 shadow-sm">
+                    <img id="pdfChartImage" class="w-full h-auto object-contain" alt="Score Chart">
+                </div>
+                <div id="pdfContentArea" class="w-2/3 text-sm">
+                    <!-- Table will be populated dynamically -->
+                </div>
+            </div>
+
+            <div class="border-t-2 border-orange-200 pt-4 mb-6 z-10 relative bg-white/80 p-4 rounded-lg">
+                <h3 class="text-lg font-bold text-orange-700 mb-3 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"></path></svg>
+                    Personalized Recommendations
+                </h3>
+                <ul id="pdfRecommendations" class="space-y-3 text-sm text-gray-800">
+                    <!-- Recommendations will be populated here -->
+                </ul>
+            </div>
+            
+            <div class="border-t-2 border-orange-200 pt-4 z-10 relative">
+                <h3 class="text-md font-bold text-orange-700 mb-2">Student Reflection</h3>
+                <p id="pdfReflection" class="bg-orange-50/50 p-4 border border-orange-100 rounded-lg italic text-gray-700 whitespace-pre-wrap text-sm min-h-[60px]"></p>
+            </div>
         </div>
     </div>
 
@@ -919,39 +959,55 @@
             const chartImg = document.getElementById('pdfChartImage');
             chartImg.src = chartCanvas.toDataURL('image/png');
 
-            // Generate responses breakdown
-            let pdfHtml = '';
+            // Generate responses breakdown TABLE
+            let pdfHtml = `
+                <table class="w-full text-left border-collapse bg-white shadow-sm rounded overflow-hidden">
+                    <thead>
+                        <tr class="bg-orange-100">
+                            <th class="border-b-2 border-orange-200 p-2 text-orange-800 font-bold">Activity</th>
+                            <th class="border-b-2 border-orange-200 p-2 text-orange-800 font-bold text-right">Score</th>
+                            <th class="border-b-2 border-orange-200 p-2 text-orange-800 font-bold text-right">%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
             const titles = ["Listening", "Reading", "Vocabulary", "Language in Use", "Writing"];
             
             Object.keys(scores).forEach((key, idx) => {
                 const s = scores[key].s;
                 const m = scores[key].m;
+                const pct = Math.round((s / m) * 100) || 0;
                 pdfHtml += `
-                    <div class="mb-4 pb-2 border-b border-gray-200">
-                        <h4 class="font-bold text-blue-800">Activity ${idx+1}: ${titles[idx]} <span class="float-right text-gray-600">Score: ${s}/${m}</span></h4>
-                    </div>
+                    <tr class="hover:bg-orange-50">
+                        <td class="border-b border-gray-100 p-2 font-medium text-gray-800">Activity ${idx+1}: ${titles[idx]}</td>
+                        <td class="border-b border-gray-100 p-2 text-right text-gray-600">${s}/${m}</td>
+                        <td class="border-b border-gray-100 p-2 text-right font-bold text-orange-600">${pct}%</td>
+                    </tr>
                 `;
             });
+            pdfHtml += `</tbody></table>`;
 
             document.getElementById('pdfContentArea').innerHTML = pdfHtml;
-
-            // Reveal container temporarily for html2pdf
-            const pdfContainer = document.getElementById('pdf-container');
-            pdfContainer.style.display = 'block';
+            
+            // Populate Recommendations
+            document.getElementById('pdfRecommendations').innerHTML = document.getElementById('recommendationsList').innerHTML;
 
             const opt = {
-                margin:       0.5,
+                margin:       [0.3, 0.3, 0.3, 0.3], // Adds breathing room at the top
                 filename:     `Science_Exam_Prep_${document.getElementById('studentName').value || 'Student'}.pdf`,
-                image:        { type: 'jpeg', quality: 0.98 },
-                html2canvas:  { scale: 2, useCORS: true },
+                image:        { type: 'jpeg', quality: 1.0 },
+                html2canvas:  { scale: 2, useCORS: true, windowWidth: 1024, scrollX: 0, scrollY: 0 },
                 jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
             };
 
-            html2pdf().set(opt).from(pdfContainer).save().then(() => {
-                pdfContainer.style.display = 'none';
-                btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Download PDF';
-                btn.disabled = false;
-            });
+            // Capture the content directly from the wrapper
+            setTimeout(() => {
+                window.scrollTo(0, 0); // Scroll to top to ensure complete capture
+                html2pdf().set(opt).from(document.getElementById('pdf-container')).save().then(() => {
+                    btn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg> Download PDF';
+                    btn.disabled = false;
+                });
+            }, 300);
         });
 
         // --- APP CONTROLS --- //
